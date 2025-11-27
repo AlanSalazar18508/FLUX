@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLUX - Tips Premium de Ahorro</title>
+    
+    <style>
+        /* --- ESTILOS CSS BASE (Iguales a los demás archivos FLUX) --- */
+        :root {
+            --color-primary: #00ADB5; 
+            --color-background: #222831;
+            --color-card-bg: #393E46; 
+            --color-success: #10B981;
+            --color-danger: #FF4D4D;
+            --color-text-light: #EEEEEE; 
+            --color-text-secondary: #B0B0B0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text-light);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--color-card-bg);
+            padding: 25px 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo-group { display: flex; align-items: center; }
+        .logo-img { 
+            width: 45px; height: 45px; margin-right: 15px; 
+            background-color: var(--color-primary); border-radius: 8px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 2.5em; color: white; 
+        }
+        .logo-text-area { line-height: 1.2; }
+        .logo-title { font-size: 2.8em; font-weight: 700; color: var(--color-text-light); letter-spacing: -1.5px; }
+        .logo-subtitle { font-size: 0.9em; font-weight: 400; color: var(--color-text-secondary); margin-top: -5px; }
+
+        /* Contenedor Principal */
+        .page-container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+        .panel {
+            background-color: var(--color-card-bg);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        h1 { 
+            font-size: 2.2em; color: var(--color-primary); 
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1); 
+            padding-bottom: 15px; margin-bottom: 30px;
+        }
+
+        /* --- ESTILOS ESPECÍFICOS PARA EL MURO DE PAGO --- */
+        .paywall-content {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .paywall-content h2 {
+            font-size: 2.5em;
+            color: var(--color-danger);
+            margin-bottom: 20px;
+            border-bottom: none;
+        }
+        .paywall-content p {
+            font-size: 1.2em;
+            color: var(--color-text-secondary);
+            margin-bottom: 30px;
+        }
+        .login-input {
+            width: 70%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            background-color: #2A313C; 
+            color: var(--color-text-light);
+            font-size: 1.1em;
+        }
+        .paywall-btn {
+            background-color: var(--color-primary);
+            color: var(--color-card-bg);
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: 700;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .paywall-btn:hover { background-color: #008899; }
+        .sample-tip {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            color: var(--color-text-secondary);
+        }
+        .error-msg {
+            color: var(--color-danger);
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        #premiumContent p {
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        /* Botón Volver */
+        .btn-volver {
+            background-color: var(--color-text-secondary);
+            color: var(--color-card-bg); 
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+        .btn-volver:hover { background-color: #999; }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div class="logo-group">
+            <div class="logo-img">⚡</div> 
+            <div class="logo-text-area">
+                <div class="logo-title">FLUX</div>
+                <div class="logo-subtitle">DIAGNOSTICO INTELIGENTE</div>
+            </div>
+        </div>
+        <div>
+            <a href="flux_main_dashboard.html" class="btn-volver">← Volver al Panel Principal</a>
+        </div>
+    </header>
+
+    <div class="page-container">
+        <h1>Biblioteca de Tips de Ahorro Energético</h1>
+
+        <div id="muro-de-pago" class="panel">
+            
+            <div class="paywall-content" id="premiumAccess">
+                <h2>¡Maximiza tu Ahorro con FLUX Premium!</h2>
+                <p>Desbloquea estrategias avanzadas y consejos exclusivos que te ayudarán a reducir hasta un 25% más en tu factura eléctrica.</p>
+                <input type="text" id="membershipCode" class="login-input" placeholder="Ingresa tu Número de Membresía (PFLUX321)">
+                <a href="#" class="paywall-btn" onclick="checkMembershipCode(event)">Validar Membresía</a>
+                <div id="membershipMessage" class="error-msg" style="display:none;"></div>
+            </div>
+
+            <div id="premiumContent" style="display:none;">
+                <h3 style="color:var(--color-success);">✅ Contenido Premium Desbloqueado</h3>
+                <p style="color:var(--color-text-light);"><strong>Tip 1 (Estrategia de Turnos):</strong> El 80% de las sobrecargas nocturnas se deben a la coincidencia de 3 equipos. Revisa tu historial para rotar el uso del A/C, lavadora y secadora en turnos separados.</p>
+                <p style="color:var(--color-text-light);"><strong>Tip 2 (Ajuste Térmico Fino):</strong> Reducir el termostato de tu boiler o calentador de agua de 60°C a 50°C puede ahorrar hasta 15% de energía sin afectar el confort. ¡Revisa la Potencia (W) que consume tu boiler al encenderse!</p>
+                <p style="color:var(--color-text-light);"><strong>Tip 3 (Filtros y Mantenimiento):</strong> Mantener limpios los filtros de tu aire acondicionado reduce el consumo eléctrico hasta un 10%. Usa tu historial para predecir cuándo el consumo comienza a subir y programa el mantenimiento.</p>
+            </div>
+            
+            <div class="sample-tip">
+                <h3>⭐ Tip Básico GRATIS (Muestra):</h3>
+                <p><strong>Estrategia de Apagado Fantasma:</strong> Desconecta los cargadores que no uses y equipos en modo Stand-by. ¡Estos pequeños consumos suman hasta el 10% de tu gasto total mensual!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const VALID_MEMBERSHIP = "PFLUX321"; 
+
+        function checkMembershipCode(event) {
+            event.preventDefault(); // Evita que el enlace recargue
+            const inputCode = document.getElementById('membershipCode').value.toUpperCase().trim();
+            const messageDiv = document.getElementById('membershipMessage');
+            const accessDiv = document.getElementById('premiumAccess');
+            const contentDiv = document.getElementById('premiumContent');
+
+            messageDiv.style.display = 'block';
+
+            if (inputCode === VALID_MEMBERSHIP) {
+                messageDiv.innerHTML = '¡Membresía Activa! Disfruta del contenido.';
+                messageDiv.style.color = 'var(--color-success)';
+                setTimeout(() => {
+                    accessDiv.style.display = 'none'; 
+                    contentDiv.style.display = 'block'; 
+                }, 500);
+            } else {
+                messageDiv.innerHTML = 'Error: Membresía no válida o pago pendiente.';
+                messageDiv.style.color = 'var(--color-danger)';
+            }
+        }
+    </script>
+</body>
+</html>
